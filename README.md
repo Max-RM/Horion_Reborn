@@ -1,5 +1,6 @@
 Horion is a Minecraft: Bedrock Edition utility mod designed to enhance gameplay. We do not take responsibility in anything done with this utility mod.
-If you want to contribute to this project, feel free to fork this repository and submit a pull request. Original repo: https://github.com/horionclient/Horion
+If you want to contribute to this project, feel free to fork this repository and submit a pull request.
+Original repo: https://github.com/horionclient/Horion
 
 ## Description
 If you tried to use Horion on an older version of Minecraft Bedrock Edition, you probably ran into the problem of "Download a new injector ..." or the crash of the game itself or the inability to import the DLL itself.
