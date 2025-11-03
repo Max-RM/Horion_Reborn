@@ -16,7 +16,9 @@ And use a text editor to find and replace the line:
 bool isConnected = horionToInjector->isPresent && injectorToHorion->isPresent && horionToInjector->ProtocolVersion >= injectorToHorion->ProtocolVersion;
 ```
 with:
-"bool isConnected = true;"
+```
+bool isConnected = true;
+```
 Then find and replace the string:
 ```
 g_Data.setInjectorConnectionActive(isConnected);
