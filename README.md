@@ -6,7 +6,7 @@ Original repo: https://github.com/horionclient/Horion
 ## Description
 If you tried to use Horion on an older version of Minecraft Bedrock Edition, you probably ran into the problem of "Download a new injector ..." or the crash of the game itself or the inability to import the DLL itself.
 This is because the DLL code itself has a built-in mechanism for checking the new version on Horion servers, and if a newer version is detected, it prevents you from playing.
-But @dmitryi365 found a workaround method that apparently works on all versions of the game, after which you will finally be able to use Horion on the old version of the game without problems.
+But https://github.com/dmitryi365 found a workaround method that apparently works on all versions of the game, after which you will finally be able to use Horion on the old version of the game without problems.
 Manual is here:
 Find the file: "Loader.cpp"
 In the folder:
