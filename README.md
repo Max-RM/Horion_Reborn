@@ -57,6 +57,8 @@ Before compiling, be sure to change the type from "Debug" to: "Release", a "Unab
 Instead of Horion Injector use this one to import .DLL and after launch the game click "Inject":
 https://github.com/fligger/FateInjector/releases
 
+If you have any questions ask here: https://github.com/Max-RM/Horion_Reborn
+
 
 ## Licensing
 This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/ or send a letter to Creative Commons, PO Box 1866, Mountain View, CA 94042, USA.
