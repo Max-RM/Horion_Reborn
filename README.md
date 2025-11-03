@@ -12,17 +12,27 @@ Find the file: "Loader.cpp"
 In the folder:
 "<SOURCE_CODE>\Horion\"
 And use a text editor to find and replace the line:
-```bool isConnected = horionToInjector->isPresent && injectorToHorion->isPresent && horionToInjector->ProtocolVersion >= injectorToHorion->ProtocolVersion;```
+```
+bool isConnected = horionToInjector->isPresent && injectorToHorion->isPresent && horionToInjector->ProtocolVersion >= injectorToHorion->ProtocolVersion;
+```
 with:
 "bool isConnected = true;"
 Then find and replace the string:
-```g_Data.setInjectorConnectionActive(isConnected);```
+```
+g_Data.setInjectorConnectionActive(isConnected);
+```
 With:
-```g_Data.setInjectorConnectionActive(true);```
+```
+g_Data.setInjectorConnectionActive(true);
+```
 Then find and the string:
-```CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)injectorConnectionThread, lpParam, NULL, &CONTREAD);```
+```
+CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)injectorConnectionThread, lpParam, NULL, &CONTREAD);
+```
 And add "//" at the very beginning to comment it, that is:
-```//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)injectorConnectionThread, lpParam, NULL, &contread);```
+```
+//CreateThread(NULL, NULL, (LPTHREAD_START_ROUTINE)injectorConnectionThread, lpParam, NULL, &contread);
+```
 Then find the lines:
 ```
 	while (!g_Data.isInjectorConnectionActive()) {
@@ -45,9 +55,13 @@ Then find the file:
 In the folder:
 "<SOURCE_CODE>\Memory\"
 And use a text editor to find and replace the single line:
-```bool injectorConnectionActive = false;```
+```
+bool injectorConnectionActive = false;
+```
 With:
-```bool injectorConnectionActive = true;```
+```
+bool injectorConnectionActive = true;
+```
 That is, simply change false to true.
 After that, the work with this file will be completed, save and close.
 This is the whole method. Tested on 1.16.20.03 and 1.16.40.02 and worked without any problems.
