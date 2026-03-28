@@ -85,6 +85,7 @@
 #include "Modules/Zoom.h"
 #include "Modules/Teams.h"
 #include "Modules/Nbt.h"
+#include "Modules/NbtReadFix.h"
 #include "Modules/Godmode.h"
 #include "Modules/Freelook.h"
 #include "Modules/NoHurtcam.h"

@@ -203,6 +203,7 @@ add_library(Horion SHARED
         Horion/Module/Modules/NameTags.cpp
         Horion/Module/Modules/NameTags.h
         Horion/Module/Modules/Nbt.cpp
+        Horion/Module/Modules/NbtReadFix.cpp
         Horion/Module/Modules/Nbt.h
         Horion/Module/Modules/NightMode.cpp
         Horion/Module/Modules/NightMode.h

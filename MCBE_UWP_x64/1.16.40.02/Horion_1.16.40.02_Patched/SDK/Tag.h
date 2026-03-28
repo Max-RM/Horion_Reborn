@@ -1,6 +1,7 @@
 #pragma once
 #include "MojangsonToken.h"
 #include "TextHolder.h"
+#include <cctype>
 #include <sstream>
 #include <memory>
 
@@ -311,9 +312,8 @@ public:
 			if (character == MojangsonToken::STRING_QUOTES.getSymbol()) {
 				inString = !inString;
 			}
-			if (character == MojangsonToken::WHITE_SPACE.getSymbol()) {
-				if (!inString)
-					continue;
+			if (!inString && std::isspace(static_cast<unsigned char>(character))) {
+				continue;
 			}
 			if ((character == MojangsonToken::COMPOUND_START.getSymbol() || character == MojangsonToken::ARRAY_START.getSymbol()) && !inString) {
 				scope++;
@@ -395,9 +395,8 @@ public:
 			if (character == MojangsonToken::STRING_QUOTES.getSymbol()) {
 				inString = !inString;
 			}
-			if (character == MojangsonToken::WHITE_SPACE.getSymbol()) {
-				if (!inString)
-					continue;
+			if (!inString && std::isspace(static_cast<unsigned char>(character))) {
+				continue;
 			}
 			if ((character == MojangsonToken::COMPOUND_START.getSymbol() || character == MojangsonToken::ARRAY_START.getSymbol()) && !inString) {
 				scope++;
@@ -414,6 +413,17 @@ public:
 				continue;
 			}
 			if (context == C_COMPOUND_PAIR_KEY) {
+				// After "states:{}" the comma between pairs was consumed as key text (e.g. ",version"),
+				// breaking movingBlockExtra and any compound with an empty nested object before more keys.
+				if (tmp_key.empty()) {
+					if (character == MojangsonToken::ELEMENT_SEPERATOR.getSymbol()) {
+						continue;
+					}
+					// "{} or end of compound after last pair
+					if (character == MojangsonToken::COMPOUND_END.getSymbol()) {
+						return;
+					}
+				}
 				if (character == MojangsonToken::ELEMENT_PAIR_SEPERATOR.getSymbol() && scope <= 1) {
 					context++;
 					continue;

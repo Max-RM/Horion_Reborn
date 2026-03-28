@@ -32,8 +32,15 @@ void Nbt::onTick(C_GameMode* gm) {
 				return;
 			this->lastCopy = str;
 			Utils::setClipboardText(this->lastCopy);
-			g_Data.getGuiData()->displayClientMessageF("%s%s", GREEN, "CompoundTag copied:");
-			g_Data.getClientInstance()->getGuiData()->displayClientMessage(&str);
+			g_Data.getGuiData()->displayClientMessageF("%s%s", GREEN, "CompoundTag copied (full text is in clipboard):");
+			C_GuiData* gui = g_Data.getGuiData();
+			constexpr size_t kChunk = 512;
+			for (size_t i = 0; i < str.size();) {
+				const size_t end = (i + kChunk < str.size()) ? i + kChunk : str.size();
+				std::string part = str.substr(i, end - i);
+				gui->displayClientMessage(&part);
+				i = end;
+			}
 		}
 	}
 }

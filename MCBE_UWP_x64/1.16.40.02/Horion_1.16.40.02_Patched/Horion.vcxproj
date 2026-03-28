@@ -332,6 +332,7 @@
     <ClCompile Include="Horion\Module\Modules\Module.cpp" />
     <ClCompile Include="Horion\Module\Modules\NameTags.cpp" />
     <ClCompile Include="Horion\Module\Modules\Nbt.cpp" />
+    <ClCompile Include="Horion\Module\Modules\NbtReadFix.cpp" />
     <ClCompile Include="Horion\Module\Modules\NightMode.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoFall.cpp" />
     <ClCompile Include="Horion\Module\Modules\NoFriends.cpp" />
@@ -520,6 +521,7 @@
     <ClInclude Include="Horion\Module\Modules\Module.h" />
     <ClInclude Include="Horion\Module\Modules\NameTags.h" />
     <ClInclude Include="Horion\Module\Modules\Nbt.h" />
+    <ClInclude Include="Horion\Module\Modules\NbtReadFix.h" />
     <ClInclude Include="Horion\Module\Modules\NightMode.h" />
     <ClInclude Include="Horion\Module\Modules\NoFall.h" />
     <ClInclude Include="Horion\Module\Modules\NoFriends.h" />

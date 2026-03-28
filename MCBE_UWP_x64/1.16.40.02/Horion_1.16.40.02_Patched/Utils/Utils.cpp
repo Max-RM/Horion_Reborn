@@ -106,31 +106,59 @@ std::string Utils::getRttiBaseClassName(void* ptr) {
 	return std::string("invalid");
 }
 std::string Utils::getClipboardText() {
-	if (!OpenClipboard(nullptr)) {
+	if (!OpenClipboard(nullptr))
 		return "";
-	} else {
-		HANDLE hData = GetClipboardData(CF_TEXT);
-		char* pszText = static_cast<char*>(GlobalLock(hData));
-		if (pszText == nullptr)
-			return "";
-		CloseClipboard();
-		return std::string(pszText);
+
+	std::string result;
+	HANDLE hData = GetClipboardData(CF_UNICODETEXT);
+	if (hData) {
+		const wchar_t* wstr = static_cast<const wchar_t*>(GlobalLock(hData));
+		if (wstr) {
+			const int sizeNeeded = WideCharToMultiByte(CP_UTF8, 0, wstr, -1, nullptr, 0, nullptr, nullptr);
+			if (sizeNeeded > 1) {
+				result.resize(static_cast<size_t>(sizeNeeded - 1));
+				WideCharToMultiByte(CP_UTF8, 0, wstr, -1, &result[0], sizeNeeded, nullptr, nullptr);
+			}
+			GlobalUnlock(hData);
+		}
 	}
+	if (result.empty()) {
+		hData = GetClipboardData(CF_TEXT);
+		if (hData) {
+			char* pszText = static_cast<char*>(GlobalLock(hData));
+			if (pszText) {
+				result.assign(pszText);
+				GlobalUnlock(hData);
+			}
+		}
+	}
+	CloseClipboard();
+	return result;
 }
 void Utils::setClipboardText(std::string& text) {
 	if (!OpenClipboard(nullptr))
 		return;
 	EmptyClipboard();
-	HGLOBAL hg = GlobalAlloc(GMEM_MOVEABLE, text.size() + 1);
+
+	std::wstring w = stringToWstring(text);
+	const size_t byteCount = (w.size() + 1) * sizeof(wchar_t);
+	HGLOBAL hg = GlobalAlloc(GMEM_MOVEABLE, byteCount);
 	if (!hg) {
 		CloseClipboard();
 		return;
 	}
-	memcpy(GlobalLock(hg), text.c_str(), text.size() + 1);
+	void* lock = GlobalLock(hg);
+	if (!lock) {
+		GlobalFree(hg);
+		CloseClipboard();
+		return;
+	}
+	memcpy(lock, w.c_str(), byteCount);
 	GlobalUnlock(hg);
-	SetClipboardData(CF_TEXT, hg);
+	if (!SetClipboardData(CF_UNICODETEXT, hg)) {
+		GlobalFree(hg);
+	}
 	CloseClipboard();
-	GlobalFree(hg);
 }
 uintptr_t Utils::FindSignatureModule(const char* szModule, const char* szSignature) {
 	const char* pattern = szSignature;
